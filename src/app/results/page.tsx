@@ -14,14 +14,14 @@ export default function ResultsPage() {
 
   useEffect(() => {
     if (!loading && !result) {
-      router.push('/');
+      router.push('/instructions');
     }
   }, [result, loading, router]);
 
   const handleDone = () => {
     dispatch(clearResult());
     dispatch(resetExam());
-    router.push('/');
+    router.push('/instructions');
   };
 
   if (loading) {
