@@ -77,47 +77,49 @@ export default function MultiStepAuth() {
     }
   };
 
-  const handleVerifyOTP = async () => {
-    if (otp.length < 4) {
-      showToast("Enter the OTP");
-      return;
-    }
+const handleVerifyOTP = async () => {
+  if (otp.length < 4) {
+    showToast("Enter the OTP");
+    return;
+  }
 
-    const result = await dispatch(verifyOTP({ mobile: formattedMobile, otp }));
+  const result = await dispatch(verifyOTP({ mobile: formattedMobile, otp }));
 
-    if (verifyOTP.fulfilled.match(result)) {
-      if (result.payload.login && result.payload.access_token) {
-        router.push("/instructions");
-      } else {
-        setStep(3);
-      }
+  if (verifyOTP.fulfilled.match(result)) {
+    if (result.payload.hasProfile) {
+      // router.push("/instructions");
     } else {
-      showToast("Invalid OTP", "error");
+      setStep(3); 
     }
-  };
+  } else {
+    showToast("Invalid OTP", "error");
+  }
+};
+
 
   const handleCreateProfile = async () => {
-    if (!name || !email || !qualification || !image) {
-      showToast("Fill all fields", "error");
-      return;
-    }
+  if (!name || !email || !qualification || !image) {
+    showToast("Fill all fields", "error");
+    return;
+  }
 
-    const result = await dispatch(
-      createProfile({
-        mobile: formattedMobile,
-        name,
-        email,
-        qualification,
-        profile_image: image,
-      })
-    );
+  const result = await dispatch(
+    createProfile({
+      mobile: formattedMobile,
+      name,
+      email,
+      qualification,
+      profile_image: image,
+    })
+  );
 
-    if (createProfile.fulfilled.match(result)) {
-      router.push("/instructions");
-    } else {
-      showToast("Failed to create profile");
-    }
-  };
+  if (createProfile.fulfilled.match(result)) {
+    router.push("/instructions"); 
+  } else {
+    showToast("Failed to create profile");
+  }
+};
+
 
   return (
     <div
@@ -125,7 +127,6 @@ export default function MultiStepAuth() {
       style={{ backgroundImage: "url('/bg-pattern.png')" }}
     >
       <div className="flex flex-col md:flex-row w-full max-w-[850px] rounded-2xl overflow-hidden shadow-xl bg-[#0D1B2A]/40 backdrop-blur-lg">
-        {/* Left Section - Logo & Image */}
         <div className="w-full md:w-1/2 p-6 sm:p-8 md:p-10 flex flex-col justify-center items-center bg-[#1d3344]">
           <div className="flex items-center gap-1 mb-6 sm:mb-8 md:mb-10">
             <div className="rounded-lg p-2 sm:p-3 flex items-center justify-center transform -rotate-12">
