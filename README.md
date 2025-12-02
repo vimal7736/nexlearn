@@ -98,7 +98,7 @@ npm install
 
 
 
-3. env.local
+3. .env.local
 
 NEXT_PUBLIC_API_BASE_URL=<Your API URL>
 
