@@ -99,7 +99,7 @@ const examSlice = createSlice({
         state.currentQuestionIndex += 1;
         
         const currentQuestion = state.questions[state.currentQuestionIndex];
-        // FIXED: Use question_id instead of id
+        
         if (currentQuestion && !state.questionStatuses[currentQuestion.question_id]) {
           state.questionStatuses[currentQuestion.question_id] = {
             visited: true,
@@ -117,7 +117,7 @@ const examSlice = createSlice({
         state.currentQuestionIndex -= 1;
         
         const currentQuestion = state.questions[state.currentQuestionIndex];
-        // FIXED: Use question_id instead of id
+        
         if (currentQuestion) {
           if (!state.questionStatuses[currentQuestion.question_id]) {
             state.questionStatuses[currentQuestion.question_id] = {
@@ -171,7 +171,7 @@ const examSlice = createSlice({
         };
         state.timeRemaining = action.payload.total_time * 60; 
         
-        // FIXED: Use question_id instead of id
+       
         if (state.questions.length > 0) {
           state.questionStatuses[state.questions[0].question_id] = {
             visited: true,
